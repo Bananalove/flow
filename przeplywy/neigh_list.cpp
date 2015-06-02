@@ -1,5 +1,4 @@
 #include "neigh_list.h"
-#define _CRTDBG_MAP_ALLOC 
 Path Graph_nl::Dij_alg()
 {
 	Path path(numV, false);

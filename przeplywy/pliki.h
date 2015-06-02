@@ -4,7 +4,6 @@
 #include <fstream>
 #include <list>
 #include "graph_base.h"
-#include "path.h"
 
 
 /*
@@ -88,6 +87,21 @@ void write_graph(const char* name, const Graph_common& graph)
 	}
 }
 
+void write_flow(const char* name, const Graph_am& gam, const Flow& flow)
+{
+
+	std::ofstream ofs;
+	ofs.open(name, std::ofstream::out);
+	if (ofs.is_open())
+	{
+		gam.print_flow(flow, ofs);
+		ofs.close();
+	}
+	else
+	{
+		throw std::runtime_error("Plik zapisu nie zostal otwarty!\n");
+	}
+}
 void write_path(const char* name, const Path& path)
 {
 

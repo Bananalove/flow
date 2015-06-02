@@ -69,16 +69,6 @@ public:
 
 	void fill_graph_rep();
 
-	void fill_number(int num)
-	{
-		for (int i = 0; i < numV; ++i)
-		{
-			for (int j = 0; j < numV; ++j)
-			{
-				adj_matrix[i][j] = num;
-			}
-		}
-	}
 	
 	int find_edge(int v1, int v2)
 	{
@@ -87,9 +77,46 @@ public:
 
 	std::ostream& print(std::ostream& out) const;
 
-	void Ford_Fulkerson_BFS();
-	void Ford_Fulkerson_DFS()
-	{}
+	Flow Ford_Fulkerson_BFS();
+	Flow Ford_Fulkerson_DFS();
+	
+	void print_flow(const Flow& flow) const
+	{
+
+		std::cout << "Fmax   wynosi " << flow.fmax << "\n";
+		std::cout << std::endl;
+		for (int i = 0; i < numV; ++i)
+			{
+			for (int j = 0; j < numV; ++j)
+				{
+				if (adj_matrix[i][j] != constants::no_v)
+					{
+					std::cout << i << " -> " << j << "  " << adj_matrix[i][j] << " / "  << flow.flow_m[i][j]<< "\n";
+					}
+				}
+			}
+	
+
+	}
+	void print_flow(const Flow& flow, std::ostream& out) const
+	{
+
+		out << "Fmax   wynosi " << flow.fmax << "\n";
+		out << std::endl;
+		for (int i = 0; i < numV; ++i)
+		{
+			for (int j = 0; j < numV; ++j)
+			{
+				if (adj_matrix[i][j] != constants::no_v)
+				{
+					std::cout << i << " -> " << j << "  " << adj_matrix[i][j] << " / " << flow.flow_m[i][j] << "\n";
+				}
+			}
+		}
+
+	
+
+	}
 };
 
 

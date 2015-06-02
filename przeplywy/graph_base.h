@@ -5,6 +5,7 @@
 #include <tuple>// w tym moze byc wiecej niz 4 elementy, ale jest ok :)
 #include <utility>
 #include <queue>
+#include <stack>
 #include <iostream>
 #include <string>
 #include <exception>
@@ -14,6 +15,7 @@
 #include <iomanip>
 #include <algorithm> //min_elem
 #include "path.h"
+#include "flow.h"
 
 
 /*
@@ -159,8 +161,8 @@ public:
 	virtual int find_edge(int v1, int v2) = 0;
 	virtual void fill_graph_rep() = 0;
 	virtual std::ostream& print(std::ostream& out) const = 0;
-	virtual void Ford_Fulkerson_BFS()=0;
-	virtual void Ford_Fulkerson_DFS() = 0;
+	//virtual void Ford_Fulkerson_BFS()=0;
+	//virtual void Ford_Fulkerson_DFS() = 0;
 
 };
 

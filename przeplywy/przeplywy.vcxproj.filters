@@ -59,5 +59,17 @@
     <ClInclude Include="stoper_bell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="menu_flow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="menu_base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stoper_flow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="flow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

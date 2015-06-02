@@ -72,14 +72,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adj_matrix.h" />
+    <ClInclude Include="flow.h" />
+    <ClInclude Include="menu_base.h" />
     <ClInclude Include="graph_base.h" />
     <ClInclude Include="menu_bell.h" />
+    <ClInclude Include="menu_flow.h" />
     <ClInclude Include="menu_prim.h" />
     <ClInclude Include="neigh_list.h" />
     <ClInclude Include="path.h" />
     <ClInclude Include="pliki.h" />
     <ClInclude Include="stoper.h" />
     <ClInclude Include="stoper_bell.h" />
+    <ClInclude Include="stoper_flow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

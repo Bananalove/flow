@@ -1,6 +1,5 @@
 #include "Graph_base.h"
 #include <iomanip>
-#define _CRTDBG_MAP_ALLOC 
 
 
 /* Plik definuje operacje dla wspolnej wersji grafow */

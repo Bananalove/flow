@@ -2,7 +2,6 @@
 #include <ctime>
 #include <cstdlib>
 #include <numeric>
-#define _CRTDBG_MAP_ALLOC 
 /* 
 * File defines funtions to generating graphs
 *

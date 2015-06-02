@@ -1,176 +1,9 @@
 ﻿#include "adj_matrix.h"
-/*
-void Graph_am::Ford_Fulkerson_BFS()
+
+Flow Graph_am::Ford_Fulkerson_BFS() // przechodzenie grafow wszerz 
 {
-	//int cp;   // Zmienne proste algorytmu
-	bool finished = false;                       // Do wychodzenia z zagnieżdżonych pętli
-
-	int fmax = 0;
-	
-		
 	Graph_base flow(0, numV, 0, 0, true);
-	Graph_am flow_m(flow); // macierz przeplywow
-	flow_m.fill_number(0);
-	std::vector<int> previous(numV, constants::no_v);
-
-	std::vector<int> CFP(numV, 0);
-	int cp = 0; // przechowuje wartość przepustowości rezydualnej
-	int Ver1 = constants::no_v;
-	int Ver2 = constants::no_v;
-
-	std::queue<int> vertex_queue;
-	
-	
-
-	
-
-	
-
-	// W pętli szukamy ścieżek rozszerzających dotąd,
-	// dopóki istnieją w sieci rezydualnej. Każda znaleziona
-	// ścieżka zwiększa przepływ wzdłuż zawartych w niej
-	// krawędzi grafu sieci przepływowej
-
-	while (true)
-	{
-
-		// Na początku pętli zerujemy tablicę poprzedników P
-
-		for (int i = 0; i < numV; i++)
-		{
-		previous[i] = constants::no_v;
-		}
-		// źródło nie posiada poprzednika. Wpisujemy tutaj -2,
-		// aby BFS nie wybierało źródła
-
-		previous[Vstart] = constants::absolutely_no_v;
-
-		// Do CFP[Vstart] wpiVstartujemy najwiękVstartzą liczbę całkowitą
-
-		CFP[Vstart] = constants::infinit;
-
-		// Zerujemy kolejkę i umieszczamy w niej źródło s
-
-		while (!vertex_queue.empty())
-		{
-			vertex_queue.pop();
-		}
-		vertex_queue.push(Vstart);
-
-		// Zmienna finished umożliwia odpowiednie wychodzenie z
-		// dwóch zagnieżdżonych pętli - zamiast polecenie goto.
-
-		finished = false;
-
-		// Rozpoczynamy pętlę wyszukującą ścieżki BFS. Pętla kończy
-		// się w przypadku braku dalszych wierzchołków w kolejce
-
-		while (!vertex_queue.empty())
-		{
-
-			// Z początku kolejki pobieramy element i usuwamy go z kolejki
-
-			Ver1 = vertex_queue.front(); vertex_queue.pop();
-
-			// Sprawdzamy wszystkich sąsiadów wierzchołka x przeglądając
-			// wiersz macierzy adj_matrix
-
-			for (Ver2 = 0; Ver2 < numV; Ver2++)
-			{
-
-				// Dla sąsiada y wyznaczamy przepustowość rezydualną
-				// krawędzi x->y. Jeśli krawędź nie istnieje w sieci,
-				// to otrzymamy w cp wynik zero
-				if (adj_matrix[Ver1][Ver2] != constants::no_edge && previous[Ver2] == constants::no_v)
-				{
-					cp = adj_matrix[Ver1][Ver2] - flow_m.adj_matrix[Ver1][Ver2];
-
-					// W previous[Ver2] zapamiętujemy, iż poprzednikiem y jest Ver1
-
-					previous[Ver2] = Ver1;
-
-					// Dla wierzchołka y obliczamy dotychczasową przepustowość
-					// rezydualną ścieżki. Jest to mniejsza wartość z przepustowości
-					// ścieżki dla poprzednika Ver1 i bieżącej przepustowości
-					// rezydualnej krawędzi Ver1->y.
-
-					CFP[Ver2] = CFP[Ver1] > cp ? cp : CFP[Ver1];
-
-					// Jeśli osiągnęliśmy ujście, to ścieżka jest kompletna
-
-					if (Ver2 == Vend)
-					{
-
-						// Zwiększamy przepływ maksymalny o przepustowość rezydualną
-						// ścieżki - wykorzystujemy tablicę CFP
-
-						fmax += CFP[Vend];
-
-						// Idziemy wstecz po ścieżce zwiększając przepływy
-						// wzdłuż jej krawędzi w kierunku zgodnym ze ścieżką
-						// oraz zmniejszając przepływy w kierunku przeciwnym
-
-						int i = Ver2;
-						while (i != Vstart)
-						{
-							Ver1 = previous[i];
-							flow_m.adj_matrix[Ver1][i] += CFP[Vend];
-							flow_m.adj_matrix[i][Ver1] -= CFP[Vend];
-							i = Ver1;
-						}
-
-						// Ustawiamy finished na true, co spowoduje wyjście z obu pętli
-
-						finished = true; break;
-					}
-
-					// Jeśli wierzchołek y nie jest ujściem t, to dopisujemy
-					// go na końcu kolejki vertex_queue i kontynuujemy pętlę BFS
-
-					vertex_queue.push(Ver2);
-				}
-			}
-
-			// Tutaj wychodzimy z pętli while, jeśli
-			// została znaleziona ścieżka rozszerzająca
-
-			if (finished) break;
-		}
-
-		// Jeśli nie znaleziono ścieżki rozszerzającej, to finished = false
-		// i w tym miejscu nastąpi wyjście z głównej pętli while
-
-		if (!finished) break;
-	}
-
-	// Prezentujemy wyniki obliczeń. Najpierw wypisujemy
-	// wartość maksymalnego przepływu
-
-	std::cout << std::endl << "fmax = " << fmax <<  std::endl << std::endl;
-
-	// Następnie wypisujemy przepływy netto wzdłuż krawędzi
-
-	for (int x = 0; x < numV; x++)
-	{
-		for (int y = 0; y < numV; y++)
-		{
-			if (adj_matrix[x][y] != constants::no_edge)
-			{
-				std::cout << x << " -> " << y << " " << flow_m.adj_matrix[x][y] << ":" << adj_matrix[x][y] << std::endl;
-			}
-		}
-		std::cout << std::endl;
-	}
-	
-}
-*/
-
-void Graph_am::Ford_Fulkerson_BFS() // przechodzenie grafow wszerz 
-{
-	int fmax = 0;
-	Graph_base flow(0, numV, 0, 0, true);
-	Graph_am flow_m(flow); // macierz przeplywow
-	flow_m.fill_number(0);
+	Flow flow_m(numV, 0);
 
 	std::vector<int> CFP(numV, 0);
 	int cp = 0; // przechowuje wartość przepustowości rezydualnej
@@ -192,7 +25,6 @@ void Graph_am::Ford_Fulkerson_BFS() // przechodzenie grafow wszerz
 
 	while (go_on)
 	{
-		std::cout << "JEstem w petli glownej!-----------------------------------\n";
 		finished = false;
 		while (!vertex_queue.empty() )
 		{
@@ -213,7 +45,6 @@ void Graph_am::Ford_Fulkerson_BFS() // przechodzenie grafow wszerz
 
 		while (!vertex_queue.empty() && go_on2)
 		{
-			std::cout << "JEstem w petli mnijeszej!************************\n";
 			ver1 = vertex_queue.front();
 			vertex_queue.pop();
 			go_on3 = true;
@@ -222,8 +53,7 @@ void Graph_am::Ford_Fulkerson_BFS() // przechodzenie grafow wszerz
 			{
 				if ((adj_matrix[ver1][i] != constants::no_edge) && (previous[i] == constants::no_v))
 				{
-					//std::cout << "ver1 " << ver1 << "\n";
-					cp = adj_matrix[ver1][i] - flow_m.adj_matrix[ver1][i];
+					cp = adj_matrix[ver1][i] - flow_m.flow_m[ver1][i];
 					if (cp)
 					{
 
@@ -243,19 +73,17 @@ void Graph_am::Ford_Fulkerson_BFS() // przechodzenie grafow wszerz
 						}
 						else
 						{
-							fmax += CFP[Vend];
-							std::cout << "Ide wstecz!\n";
 							ver2 = i;
+							flow_m.fmax += CFP[Vend];
 							while (ver2 != Vstart)
 							{
+								
 								ver1 = previous[ver2];
-								flow_m.adj_matrix[ver1][ver2] += CFP[Vend];
-								flow_m.adj_matrix[ver2][ver1] -= CFP[Vend];
+								flow_m.flow_m[ver1][ver2] += CFP[Vend];
+								flow_m.flow_m[ver2][ver1] -= CFP[Vend];
 								ver2 = ver1;
 							}
 							finished = true;
-							//go_on2 = false;
-							std::cout << "Finished!\n";
 							go_on3 = false;
 							go_on2 = false;
 
@@ -265,18 +93,10 @@ void Graph_am::Ford_Fulkerson_BFS() // przechodzenie grafow wszerz
 				}
       }
 
-      // Tutaj wychodzimy z pętli while, jeśli
-      // została znaleziona ścieżka rozszerzająca
-
-		/*	if (finished)
-			{
-				go_on2 = false;
-			}*/
+    
     }
 
-    // Jeśli nie znaleziono ścieżki rozszerzającej, to esc = false
-    // i w tym miejscu nastąpi wyjście z głównej pętli while
-
+   
 		if (!finished)
 		{
 			go_on = false;
@@ -284,152 +104,118 @@ void Graph_am::Ford_Fulkerson_BFS() // przechodzenie grafow wszerz
   }
 	
 
-	std::cout << "Fmax ostatecznie  wynosi " << fmax << "\n";
 
-	// Następnie wypisujemy przepływy netto wzdłuż krawędzi
-	for (int i = 0; i < numV; ++i)
-	{
-		for (int j = 0; j < numV; ++j)
-		{
-			if (adj_matrix[i][j] != constants::no_v)
-			{
-				std::cout << i << " -> " << j << "  " << flow_m.adj_matrix[i][j] << " : " << adj_matrix[i][j] << "\n";
-			}
-		}
-	}
-	std::cout << std::endl;
+
+	return flow_m;
 }
-	
-
-
-		/*
-void Graph_am::Ford_Fulkerson_BFS() // przechodzenie grafow wszerz 
+	Flow Graph_am::Ford_Fulkerson_DFS() // przechodzenie grafow wszerz 
 {
-	int fmax = 0;
 	Graph_base flow(0, numV, 0, 0, true);
-	Graph_am flow_m(flow); // macierz przeplywow
-	flow_m.fill_number(0);
-	std::vector<int> previous(numV, constants::no_v);
+	Flow flow_m(numV, 0);
 
 	std::vector<int> CFP(numV, 0);
 	int cp = 0; // przechowuje wartość przepustowości rezydualnej
+
+	bool go_on = true;
+	bool go_on2 = true;
+	bool go_on3 = true;
+
+	std::vector<int> previous(numV, constants::no_v);
+
 	int ver1 = constants::no_v;
 	int ver2 = constants::no_v;
 
-	
-
-	std::queue<int> vertex_queue;
+	std::stack<int> vertex_stack;
 	bool finished = false;
-	bool go_on = true;
-	bool go_on2 = true;
 
-	int ver;
+	vertex_stack.push(Vstart);
+	previous[Vstart] = constants::absolutely_no_v;
+
 	while (go_on)
 	{
-		while (!vertex_queue.empty())
+		finished = false;
+		while (!vertex_stack.empty())
 		{
-			vertex_queue.pop();
+			vertex_stack.pop();
 		}
-		vertex_queue.push(Vstart);
+		vertex_stack.push(Vstart);
 
 		CFP[Vstart] = constants::infinit;
 
+		/* zerowanie poprzednikow */
 		for (auto iter = previous.begin(), stop = previous.end(); iter != stop; ++iter)
 		{
 			*iter = constants::no_v;
 		}
 		previous[Vstart] = constants::absolutely_no_v;
 
-		finished = false;
+		go_on2 = true;
 
-		
-		while (!vertex_queue.empty() && go_on2 )
+		while (!vertex_stack.empty() && go_on2)
 		{
-			ver = vertex_queue.front();
-			vertex_queue.pop();
-			// tutaj wykonujemy operacje na wierzcholku v ??
-			std::cout << "nowa kolejka *********************\n";
-			for (int i = 0;(( i < numV) ); ++i)
+			ver1 = vertex_stack.top();
+			vertex_stack.pop();
+			go_on3 = true;
+
+			for (int i = 0; (i < numV) && go_on3; ++i)
 			{
-				if ((adj_matrix[ver][i] != constants::no_edge)  && (previous[i] == constants::no_v)) 
+				if ((adj_matrix[ver1][i] != constants::no_edge) && (previous[i] == constants::no_v))
 				{
-					
-					cp = adj_matrix[ver][i] - flow_m.adj_matrix[ver][i];
-					//CFP[y] = CFP[x] > cp ? cp : CFP[x];
-					previous[i] = ver;
-					CFP[i] =  CFP[ver] > cp ? cp : CFP[ver]; // wybierz minimum
-					std::cout << "CFP[i] " << CFP[i] << " CFP[ver] " << CFP[ver] << " cp " << cp << "\n";
-					std::cout << ver << " -> " << i << "  " << CFP[i] << " : " << adj_matrix[ver][i] << "\n";
-					if (i == Vend)
+					cp = adj_matrix[ver1][i] - flow_m.flow_m[ver1][i];
+					if (cp)
 					{
-						for (int j = 0; j < numV; ++j)
+
+						previous[i] = ver1;
+						if (CFP[ver1] < cp)
 						{
-							std::cout << CFP[j] << " ";
+							CFP[i] = CFP[ver1];
 						}
-						std::cout << "\n";
-						fmax += CFP[Vend];
-						//break;
-						std::cout << "Fmax wynosi " << fmax << "\n";
-						ver2 = Vend;
-						std::cout << "i == Vend\n";
-						while (ver2 != Vstart)
+						else
 						{
-							ver1 = previous[ver2];
-							flow_m.adj_matrix[ver1][ver2] += CFP[Vend];
-							flow_m.adj_matrix[ver2][ver2] -= CFP[Vend];
-							ver2 = ver1;
-							std::cout << "ide do tylu!\n";
+							CFP[i] = cp;
+						}
+						if (i != Vend)
+						{
+							vertex_stack.push(i);
+
+						}
+						else
+						{
+							ver2 = i;
+							flow_m.fmax += CFP[Vend];
+							while (ver2 != Vstart)
+							{
+								ver1 = previous[ver2];
+								flow_m.flow_m[ver1][ver2] += CFP[Vend];
+								flow_m.flow_m[ver2][ver1] -= CFP[Vend];
+								ver2 = ver1;
+							}
+							finished = true;
+							go_on3 = false;
+							go_on2 = false;
+
 						}
 
-						finished = true;
-						std::cout << "koniec vedn\n";
-						break;
-					}
-					else 
-					{
-						vertex_queue.push(i);
-					}
-				}
-			}
-			if (finished)
-			{
-			//	break;
-				go_on2 = false;
-			}
-		}
+					}// if(cp)
+				} // if (element exist and no previus)
+			} // for (adj_marix)
+
+
+		} // while (stack not empty)
+
+
 		if (!finished)
 		{
-			//break;
 			go_on = false;
 		}
-
-		
-	}
-
-	std::cout << "Fmax ostatecznie  wynosi " << fmax << "\n";
-
-	// Następnie wypisujemy przepływy netto wzdłuż krawędzi
-	for (int i = 0; i < numV; ++i)
-	{
-		for (int j = 0; j < numV; ++j)
-		{
-			if (adj_matrix[i][j] != constants::no_v)
-			{
-				std::cout << i << " -> " << j << "  " << flow_m.adj_matrix[i][j] << " : " << adj_matrix[i][j] << "\n";
-			}
-		}
-	}
-		std::cout << std::endl;
+	} // while ( there are still changes)
 
 
+	return flow_m;
 	
-
-	
-
-
 }
 
-*/
+
 	
 
 

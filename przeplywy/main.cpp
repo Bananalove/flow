@@ -4,10 +4,7 @@ Alicja Majewska, algorytm Dijkstry oraz Bellmana-Forda, algorytmy potrzebuja dop
 
 #include <iostream>
 #include <string>
-#include "menu_bell.h"
-#include "menu_prim.h"
-//#define _DEBUG
-#define _CRTDBG_MAP_ALLOC 
+#include "menu_base.h"
 #include <stdlib.h>
 #include <crtdbg.h>
 
@@ -15,9 +12,7 @@ Alicja Majewska, algorytm Dijkstry oraz Bellmana-Forda, algorytmy potrzebuja dop
 
 
 int main() {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	_CrtMemState state1;
-	_CrtMemCheckpoint(&state1);
+	menu_base();
 /*	menu_bell();
 	Graph_base graf(0,10, 0,0, true);
 	graf.fill(0.5);
@@ -69,7 +64,7 @@ int main() {
 		//read_file(nazwa.c_str(), graph
 		//read_file("bell.txt", graph);
 		//read_file("dij.txt", graph);
-		read_file("flow_2.txt", graph);
+		read_file("flow_1.txt", graph);
 	}
 	catch (std::exception& e)
 	{
@@ -81,9 +76,13 @@ int main() {
 	//std::cout << graph;
 	Graph_am gam(graph);
 	gam.print(std::cout);
-	gam.Ford_Fulkerson_BFS();
 
-	std::cout << "Fulkerson jest dobrze!!!!!!!\n";
+	//gam.Ford_Fulkerson_BFS();
+	//std::cout << "Tutaj doszedlem!\n";
+	//gam.Ford_Fulkerson_DFS();
+	gam.print_flow(gam.Ford_Fulkerson_BFS());
+	gam.print_flow(gam.Ford_Fulkerson_DFS());
+	//std::cout << "Fulkerson jest dobrze!!!!!!!\n";
 	/*
 	Graph_nl gnl(graph);
 	gnl.print(std::cout);
@@ -107,6 +106,5 @@ int main() {
 	path2.print_path();
 	if (path2.is_neg()) { std::cout << "Cykl ujemny matrix!\n"; }
 	*/	
-	_CrtDumpMemoryLeaks();
 
 }

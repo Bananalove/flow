@@ -12,7 +12,7 @@
 
 float time_calc_bell(int size, double level, std::string alg, std::string rep)
 {
-	const int loops_num = 2;
+	const int loops_num = 100;
 	// generowanie 
 	srand(time(NULL));
 	std::vector<float> time_vec(loops_num, 0);
