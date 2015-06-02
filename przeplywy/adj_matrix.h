@@ -35,6 +35,9 @@ public:
 		fill_graph_rep();
 		return *this;
 	}
+	Graph_am(const Graph_am& gram) = delete;
+	Graph_am& operator=(const Graph_am& gram) = delete;
+
 
 /*	Graph_am& (const Graph_am & base)
 	{
@@ -80,43 +83,10 @@ public:
 	Flow Ford_Fulkerson_BFS();
 	Flow Ford_Fulkerson_DFS();
 	
-	void print_flow(const Flow& flow) const
-	{
-
-		std::cout << "Fmax   wynosi " << flow.fmax << "\n";
-		std::cout << std::endl;
-		for (int i = 0; i < numV; ++i)
-			{
-			for (int j = 0; j < numV; ++j)
-				{
-				if (adj_matrix[i][j] != constants::no_v)
-					{
-					std::cout << i << " -> " << j << "  " << adj_matrix[i][j] << " / "  << flow.flow_m[i][j]<< "\n";
-					}
-				}
-			}
+	void print_flow(const Flow& flow) const;
 	
-
-	}
-	void print_flow(const Flow& flow, std::ostream& out) const
-	{
-
-		out << "Fmax   wynosi " << flow.fmax << "\n";
-		out << std::endl;
-		for (int i = 0; i < numV; ++i)
-		{
-			for (int j = 0; j < numV; ++j)
-			{
-				if (adj_matrix[i][j] != constants::no_v)
-				{
-					std::cout << i << " -> " << j << "  " << adj_matrix[i][j] << " / " << flow.flow_m[i][j] << "\n";
-				}
-			}
-		}
-
+	void print_flow(const Flow& flow, std::ostream& out) const;
 	
-
-	}
 };
 
 

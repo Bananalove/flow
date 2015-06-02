@@ -1,4 +1,4 @@
-﻿Build started 2015-06-02 12:46:54.
+﻿Build started 2015-06-02 13:07:28.
      1>Project "C:\Users\Compaq\Documents\Visual Studio 2013\Projects\przeplywy\przeplywy\przeplywy.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          D:\Visual_studio\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt adj_matrix.cpp main.cpp
@@ -17,9 +17,9 @@
          Debug\graph_base.obj
          Debug\main.obj
          Debug\neigh_list.obj
-     1>LINK : fatal error LNK1168: cannot open C:\Users\Compaq\Documents\Visual Studio 2013\Projects\przeplywy\Debug\przeplywy.exe for writing
-     1>Done Building Project "C:\Users\Compaq\Documents\Visual Studio 2013\Projects\przeplywy\przeplywy\przeplywy.vcxproj" (Build target(s)) -- FAILED.
+         przeplywy.vcxproj -> C:\Users\Compaq\Documents\Visual Studio 2013\Projects\przeplywy\Debug\przeplywy.exe
+     1>Done Building Project "C:\Users\Compaq\Documents\Visual Studio 2013\Projects\przeplywy\przeplywy\przeplywy.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:03.78
+Time Elapsed 00:00:03.05
